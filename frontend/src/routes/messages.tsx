@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
 
@@ -54,40 +55,34 @@ function Messages() {
     }
   }
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div style={{ color: 'red' }}>Error: {error}</div>
+  if (loading) return <div className="text-gray-600">Loading...</div>
+  if (error) return <div className="text-red-600">Error: {error}</div>
 
   return (
     <div>
-      <h1 style={{ color: '#333' }}>Messages</h1>
+      <h1 className="text-gray-800 text-3xl font-bold mb-4">Messages</h1>
       
-      <form onSubmit={addMessage} style={{ marginBottom: '20px' }}>
+      <form onSubmit={addMessage} className="mb-5">
         <input
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Enter a new message..."
-          style={{ padding: '10px', width: '300px', marginRight: '10px' }}
+          className="px-3 py-2 w-80 mr-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer' }}>
+        <Button type="submit" >
           Add Message
-        </button>
+        </Button> 
       </form>
 
-      <div>
+      <div className="space-y-3">
         {messages.map((message) => (
           <div
             key={message.id}
-            style={{
-              padding: '15px',
-              marginBottom: '10px',
-              backgroundColor: '#f9f9f9',
-              borderRadius: '5px',
-              border: '1px solid #ddd',
-            }}
+            className="p-4 bg-gray-50 rounded-lg border border-gray-200"
           >
-            <p style={{ margin: '0 0 5px 0', fontWeight: 'bold' }}>{message.text}</p>
-            <small style={{ color: '#666' }}>
+            <p className="mb-1 font-bold text-gray-800">{message.text}</p>
+            <small className="text-gray-600">
               {new Date(message.timestamp).toLocaleString()}
             </small>
           </div>

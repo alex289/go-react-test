@@ -4,15 +4,15 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 export const Route = createRootRoute({
   component: () => (
     <>
-      <div style={{ padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
-        <nav style={{ marginBottom: '20px', borderBottom: '2px solid #333', paddingBottom: '10px' }}>
-          <Link to="/" style={{ marginRight: '20px', textDecoration: 'none', color: '#0066cc' }}>
+      <div className="p-5 font-sans">
+        <nav className="mb-5 border-b-2 border-gray-800 pb-2.5">
+          <Link to="/" className="mr-5 text-blue-600 hover:text-blue-800 no-underline">
             Home
           </Link>
-          <Link to="/messages" style={{ marginRight: '20px', textDecoration: 'none', color: '#0066cc' }}>
+          <Link to="/messages" className="mr-5 text-blue-600 hover:text-blue-800 no-underline">
             Messages
           </Link>
-          <Link to="/about" style={{ textDecoration: 'none', color: '#0066cc' }}>
+          <Link to="/about" className="text-blue-600 hover:text-blue-800 no-underline">
             About
           </Link>
         </nav>

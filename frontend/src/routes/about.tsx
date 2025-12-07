@@ -17,27 +17,27 @@ function About() {
 
   return (
     <div>
-      <h1 style={{ color: '#333' }}>About This Demo</h1>
-      <p>
+      <h1 className="text-gray-800 text-3xl font-bold mb-4">About This Demo</h1>
+      <p className="mb-5 text-gray-700">
         This application demonstrates a full-stack architecture with a Go backend
         and React frontend, all served from a single Docker container.
       </p>
       
-      <div style={{ marginTop: '20px' }}>
-        <h2>Backend Health Status</h2>
+      <div className="mt-5">
+        <h2 className="text-2xl font-semibold mb-3">Backend Health Status</h2>
         {health ? (
-          <div style={{ padding: '15px', backgroundColor: '#e8f5e9', borderRadius: '5px' }}>
-            <p><strong>Status:</strong> {health.status}</p>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <p className="mb-2"><strong>Status:</strong> {health.status}</p>
             <p><strong>Server Time:</strong> {new Date(health.time).toLocaleString()}</p>
           </div>
         ) : (
-          <p>Loading...</p>
+          <p className="text-gray-600">Loading...</p>
         )}
       </div>
 
-      <div style={{ marginTop: '20px' }}>
-        <h2>Features</h2>
-        <ul>
+      <div className="mt-5">
+        <h2 className="text-2xl font-semibold mb-3">Features</h2>
+        <ul className="list-disc list-inside space-y-2">
           <li>RESTful API with Go and Gin</li>
           <li>React with Vite for fast development</li>
           <li>TanStack Router for client-side routing</li>
