@@ -32,9 +32,19 @@ RUN go mod download
 # Copy source code
 COPY cmd/ ./cmd/
 COPY internal/ ./internal/
+COPY main.go ./
 
-# Build the Go application
-RUN CGO_ENABLED=1 GOOS=linux go build -o server ./cmd/server
+# Define build arguments
+ARG VERSION=dev
+ARG BUILD_TIME=unknown
+ARG GIT_COMMIT=unknown
+
+# Build the Go application with version information
+RUN CGO_ENABLED=1 GOOS=linux go build \
+    -ldflags="-X 'go-react-demo/internal/config.Version=${VERSION}' \
+              -X 'go-react-demo/internal/config.BuildTime=${BUILD_TIME}' \
+              -X 'go-react-demo/internal/config.GitCommit=${GIT_COMMIT}'" \
+    -o server .
 
 # Final stage
 FROM alpine:latest
@@ -55,5 +65,5 @@ RUN mkdir -p ./data
 # Expose port 8080
 EXPOSE 8080
 
-# Run the server (serve is now the default command)
+# Run the server (root command starts the API)
 CMD ["./server"]

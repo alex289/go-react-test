@@ -35,10 +35,13 @@ A full-stack demo application featuring a Go backend with Gin framework and a Re
 
 ```
 .
+├── main.go                # Application entry point
 ├── cmd/
-│   └── server/
-│       └── main.go        # Application entry point with Cobra CLI
+│   ├── root.go            # Root command (starts API server)
+│   └── version.go         # Version command
 ├── internal/
+│   ├── config/
+│   │   └── config.go      # Build-time configuration (version, etc.)
 │   ├── server/
 │   │   └── server.go      # Server setup and routing
 │   ├── controllers/
@@ -92,13 +95,16 @@ Open your browser and navigate to `http://localhost:8080`
 go mod download
 
 # Run with SQLite (default)
-go run cmd/server/main.go
+go run .
 
 # Run with custom port
-go run cmd/server/main.go --port 8080
+go run . --port 8080
 
 # Run with PostgreSQL
-DB_DRIVER=postgres DATABASE_URL="host=localhost user=postgres password=postgres dbname=go_react_demo port=5432 sslmode=disable" go run cmd/server/main.go
+DB_DRIVER=postgres DATABASE_URL="host=localhost user=postgres password=postgres dbname=go_react_demo port=5432 sslmode=disable" go run .
+
+# Check version
+go run . version
 ```
 
 **Frontend (Terminal 2):**
