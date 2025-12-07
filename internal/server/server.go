@@ -2,8 +2,8 @@ package server
 
 import (
 	"fmt"
+	"go-react-demo/internal/controllers"
 	"go-react-demo/internal/database"
-	"go-react-demo/internal/handlers"
 	"go-react-demo/internal/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -22,9 +22,9 @@ func Start(port string) {
 	// API routes
 	api := r.Group("/api")
 	{
-		api.GET("/health", handlers.HealthCheck)
-		api.GET("/messages", handlers.GetMessages)
-		api.POST("/messages", handlers.CreateMessage)
+		api.GET("/health", controllers.HealthCheck)
+		api.GET("/messages", controllers.GetMessages)
+		api.POST("/messages", controllers.CreateMessage)
 	}
 
 	// Serve static files from the frontend build

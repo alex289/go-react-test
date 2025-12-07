@@ -55,5 +55,5 @@ RUN mkdir -p ./data
 # Expose port 8080
 EXPOSE 8080
 
-# Run the server with serve command
-CMD ["./server", "serve"]
+# Run the server (serve is now the default command)
+CMD ["./server"]

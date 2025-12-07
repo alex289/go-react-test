@@ -7,7 +7,7 @@ A full-stack demo application featuring a Go backend with Gin framework and a Re
 **Backend:**
 - Go 1.21
 - Gin web framework
-- GORM (SQLite)
+- GORM (SQLite or PostgreSQL)
 - Cobra CLI
 - RESTful API
 - Clean architecture (cmd/internal structure)
@@ -41,13 +41,13 @@ A full-stack demo application featuring a Go backend with Gin framework and a Re
 ├── internal/
 │   ├── server/
 │   │   └── server.go      # Server setup and routing
-│   ├── handlers/
-│   │   ├── health.go      # Health check handler
-│   │   └── message.go     # Message handlers
+│   ├── controllers/
+│   │   ├── health.go      # Health check controller
+│   │   └── message.go     # Message controllers
 │   ├── models/
 │   │   └── message.go     # GORM models
 │   ├── database/
-│   │   └── database.go    # Database connection and setup
+│   │   └── database.go    # Database connection (SQLite/PostgreSQL)
 │   └── middleware/
 │       └── cors.go        # CORS middleware
 ├── frontend/
@@ -91,11 +91,14 @@ Open your browser and navigate to `http://localhost:8080`
 # Install Go dependencies
 go mod download
 
-# Run the backend
-go run cmd/server/main.go serve
+# Run with SQLite (default)
+go run cmd/server/main.go
 
-# Or with custom port
-go run cmd/server/main.go serve --port 8080
+# Run with custom port
+go run cmd/server/main.go --port 8080
+
+# Run with PostgreSQL
+DB_DRIVER=postgres DATABASE_URL="host=localhost user=postgres password=postgres dbname=go_react_demo port=5432 sslmode=disable" go run cmd/server/main.go
 ```
 
 **Frontend (Terminal 2):**
@@ -156,6 +159,9 @@ docker-compose up -d
 ## Environment Variables
 
 - `GIN_MODE` - Set to `release` for production (default: `debug`)
+- `DB_DRIVER` - Database driver: `sqlite` or `postgres` (default: `sqlite`)
+- `DB_PATH` - SQLite database file path (default: `./data/app.db`)
+- `DATABASE_URL` - PostgreSQL connection string (required when using PostgreSQL)
 
 ## Development Notes
 
