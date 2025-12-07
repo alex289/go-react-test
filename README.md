@@ -7,7 +7,10 @@ A full-stack demo application featuring a Go backend with Gin framework and a Re
 **Backend:**
 - Go 1.21
 - Gin web framework
+- GORM (SQLite)
+- Cobra CLI
 - RESTful API
+- Clean architecture (cmd/internal structure)
 
 **Frontend:**
 - React 18
@@ -32,8 +35,21 @@ A full-stack demo application featuring a Go backend with Gin framework and a Re
 
 ```
 .
-├── main.go                 # Go backend server
-├── go.mod                  # Go dependencies
+├── cmd/
+│   └── server/
+│       └── main.go        # Application entry point with Cobra CLI
+├── internal/
+│   ├── server/
+│   │   └── server.go      # Server setup and routing
+│   ├── handlers/
+│   │   ├── health.go      # Health check handler
+│   │   └── message.go     # Message handlers
+│   ├── models/
+│   │   └── message.go     # GORM models
+│   ├── database/
+│   │   └── database.go    # Database connection and setup
+│   └── middleware/
+│       └── cors.go        # CORS middleware
 ├── frontend/
 │   ├── src/
 │   │   ├── main.tsx       # React entry point
@@ -41,6 +57,8 @@ A full-stack demo application featuring a Go backend with Gin framework and a Re
 │   ├── package.json
 │   ├── vite.config.ts
 │   └── tsconfig.json
+├── data/                  # SQLite database files (gitignored)
+├── go.mod                 # Go dependencies
 ├── Dockerfile             # Multi-stage Docker build
 └── docker-compose.yml     # Docker Compose configuration
 ```
@@ -74,7 +92,10 @@ Open your browser and navigate to `http://localhost:8080`
 go mod download
 
 # Run the backend
-go run main.go
+go run cmd/server/main.go serve
+
+# Or with custom port
+go run cmd/server/main.go serve --port 8080
 ```
 
 **Frontend (Terminal 2):**

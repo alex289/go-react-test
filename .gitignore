@@ -1,3 +1,7 @@
+# data directory for SQLite
+data/
+*.db
+
 # Go
 *.exe
 *.exe~
