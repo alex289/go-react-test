@@ -1,5 +1,5 @@
 # Build stage for frontend
-FROM node:20-alpine AS frontend-builder
+FROM node:24-trixie-slim AS frontend-builder
 
 WORKDIR /app/frontend
 
@@ -16,7 +16,7 @@ COPY frontend/ ./
 RUN npm run build
 
 # Build stage for Go backend
-FROM golang:1.21-alpine AS backend-builder
+FROM golang:1.25-alpine AS backend-builder
 
 WORKDIR /app
 
@@ -47,7 +47,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build \
     -o server .
 
 # Final stage
-FROM alpine:latest
+FROM alpine:3.22
 
 RUN apk --no-cache add ca-certificates sqlite-libs
 
@@ -62,8 +62,12 @@ COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 # Create data directory for SQLite database
 RUN mkdir -p ./data
 
+VOLUME ["/data"]
+
 # Expose port 8080
 EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 CMD ["tinyauth", "healthcheck"]
 
 # Run the server (root command starts the API)
 CMD ["./server"]

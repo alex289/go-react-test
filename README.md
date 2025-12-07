@@ -105,6 +105,10 @@ DB_DRIVER=postgres DATABASE_URL="host=localhost user=postgres password=postgres 
 
 # Check version
 go run . version
+
+# Check server health
+go run . health
+go run . health --port 8080
 ```
 
 **Frontend (Terminal 2):**

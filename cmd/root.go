@@ -21,6 +21,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.Flags().StringP("port", "p", "8080", "Port to run the server on")
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(healthCmd)
 }
 
 func Run() {
